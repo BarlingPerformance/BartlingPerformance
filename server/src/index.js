@@ -7,8 +7,9 @@ import { documentsRouter } from './routes/documents.js';
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+const allowedOrigins = process.env.CLIENT_ORIGIN?.split(',').map((o) => o.trim());
 
-app.use(cors());
+app.use(cors(allowedOrigins ? { origin: allowedOrigins } : {}));
 app.use(express.json());
 
 app.use('/api/vehicles', vehiclesRouter);
